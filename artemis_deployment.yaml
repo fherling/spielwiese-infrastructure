@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: activemq-artemis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: activemq-artemis
+  template:
+    metadata:
+      labels:
+        app: activemq-artemis
+    spec:
+      containers:
+        - name: activemq-artemis
+          image: vromero/activemq-artemis:latest
+          ports:
+            - containerPort: 61616
+            - containerPort: 8161
+          env:
+            - name: ARTEMIS_USERNAME
+              value: "admin"
+            - name: ARTEMIS_PASSWORD
+              value: "admin"
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+      imagePullSecrets:
+      - name: acr-pull-secret              
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activemq-artemis
+spec:
+  selector:
+    app: activemq-artemis
+  ports:
+    - protocol: TCP
+      port: 61616
+      targetPort: 61616
+      name: tcp
+    - protocol: TCP
+      port: 8161
+      targetPort: 8161
+      name: http

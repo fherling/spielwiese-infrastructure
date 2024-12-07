@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otlp-receiver
+  labels:
+    app: otlp-receiver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otlp-receiver
+  template:
+    metadata:
+      labels:
+        app: otlp-receiver
+    spec:
+      containers:
+      - name: otlp-receiver
+        image: otel/opentelemetry-collector:latest
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        ports:
+          - containerPort: 4318
+          - containerPort: 4317
+          - containerPort: 55679
+        #volumeMounts:
+        #- name: config-volume
+        #  mountPath: /etc/otel/config.yaml
+        #  subPath: config.yaml
+        #args: ["--config", "/etc/otel/config.yaml"]
+      #volumes:
+      #- name: config-volume
+      #  configMap:
+      #    name: otlp-receiver-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otlp-receiver
+spec:
+  selector:
+    app: otlp-receiver
+  ports:
+    - protocol: TCP
+      port: 4318
+      targetPort: 4318
+      name: http
+    - protocol: TCP
+      port: 4317
+      targetPort: 4317
+      name: grpc
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otlp-receiver-config
+data:
+  config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          http:
+    exporters:
+      logging:
+    service:
+      pipelines:
+        metrics:
+          receivers: [otlp]
+          exporters: [logging]
