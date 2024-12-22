@@ -1,0 +1,31 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# List of resource files to be transformed
+  # Add your kubernetes manifests here
+resources:
+- whoami.yaml
+- dockerconfig.yaml
+- prometheus.yaml
+- grafana.yaml
+- postgres.yaml
+- artemis.yaml
+- jaeger.yaml
+- keycloak.yaml
+- ingress.yaml
+
+# Namespace to add to all resources
+namespace: spielwiese
+
+# Common labels to add to all resources
+
+# Common annotations to add to all resources
+commonAnnotations:
+  owner: fherling
+
+# Prefix to add to all resources
+labels:
+- includeSelectors: true
+  pairs:
+    owner: fherling
+    environment: spielwiese
