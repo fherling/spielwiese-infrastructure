@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: activemq-artemis
-          image: vromero/activemq-artemis:latest
+          image: apache/activemq-artemis:latest
           ports:
             - containerPort: 61616
             - containerPort: 8161
           env:
-            - name: ARTEMIS_USERNAME
+            - name: ARTEMIS_USER
               value: "admin"
             - name: ARTEMIS_PASSWORD
               value: "admin"

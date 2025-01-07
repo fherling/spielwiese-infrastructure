@@ -16,7 +16,7 @@ if [[ ! -f "$KUSTOMIZE_DIR/kustomization.yaml" ]]; then
 fi
 
 # SWICHT TO MINIKUBE
-kubectl config use-context k3d-k3s-default
+kubectl config use-context rancher-desktop
 
 # Create namespace
 kubectl create namespace spielwiese

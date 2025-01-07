@@ -14,3 +14,8 @@ jmsbroker_pid=$!
 echo $jmsbroker_pid > jmsbroker_pid.txt
 echo "Jmsbroker PortForward PID: $jmsbroker_pid"
 
+kubectl port-forward --namespace spielwiese service/jaeger 4318:4318 >/dev/null &
+oltp_pid=$!
+echo $oltp_pid > oltp_pid.txt
+echo "OLTP PortForward PID: $oltp_pid"
+
