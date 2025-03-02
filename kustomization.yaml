@@ -13,6 +13,7 @@ resources:
 - jaeger.yaml
 - keycloak.yaml
 - ingress.yaml
+- minio.yaml
 
 # Namespace to add to all resources
 namespace: spielwiese

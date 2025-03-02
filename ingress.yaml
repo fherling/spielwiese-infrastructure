@@ -79,3 +79,23 @@ spec:
               name: activemq-artemis
               port:
                 number: 8161
+    - host: minio.local
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: minio
+              port:
+                number: 9001
+    - host: minio-api.local
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: minio
+              port:
+                number: 9000
