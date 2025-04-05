@@ -99,3 +99,14 @@ spec:
               name: minio
               port:
                 number: 9000
+
+    - host: redisinsight.local
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: redisinsight
+              port:
+                number: 5540

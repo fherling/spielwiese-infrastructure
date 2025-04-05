@@ -19,3 +19,8 @@ oltp_pid=$!
 echo $oltp_pid > oltp_pid.txt
 echo "OLTP PortForward PID: $oltp_pid"
 
+kubectl port-forward --namespace spielwiese service/redis 6379:6379 >/dev/null &
+redis_pid=$!
+echo $redis_pid > redis_pid.txt
+echo "redis PortForward PID: $redis_pid"
+

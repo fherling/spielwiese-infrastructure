@@ -7,6 +7,8 @@ resources:
 - whoami.yaml
 - dockerconfig.yaml
 - prometheus.yaml
+- redis.yaml
+- redisinsight.yaml
 - grafana.yaml
 - postgres.yaml
 - artemis.yaml
